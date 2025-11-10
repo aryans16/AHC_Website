@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,21 +30,75 @@
 
         /* ---------- HEADER ---------- */
         header{
-            position:fixed;left:0;right:0;top:0;z-index:120;
-            display:flex;align-items:center;justify-content:space-between;padding:16px 36px;
-            background:rgba(122,31,31,var(--nav-alpha));
-            backdrop-filter:blur(8px);
-            transition:padding .25s ease,box-shadow .25s ease,background .25s ease;
+            position:fixed;
+            left:0; right:0; top:0;
+            z-index:120;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:16px 36px;
+
+            background:rgba(122,31,31,0.72);
+            backdrop-filter:blur(12px) saturate(140%);
+            -webkit-backdrop-filter:blur(12px) saturate(140%);
+            border-bottom:1px solid rgba(255,255,255,0.12);
+            box-shadow:0 6px 20px rgba(0,0,0,0.12);
+
+            /* added smooth transform + opacity transition */
+            transition:
+                    padding .25s ease,
+                    box-shadow .25s ease,
+                    background .25s ease,
+                    transform .35s ease,
+                    opacity .35s ease;
         }
+
+        header.shrink{
+            padding:8px 24px;
+            background:rgba(122,31,31,0.82);
+            box-shadow:0 8px 28px rgba(0,0,0,0.18);
+        }
+
+        header.shrink{
+            padding:8px 24px;
+            background:rgba(122,31,31,0.82); /* slightly darker on scroll */
+            box-shadow:0 8px 28px rgba(0,0,0,0.18);
+        }
+
         header.shrink{padding:8px 24px;box-shadow:0 8px 30px rgba(0,0,0,0.14)}
         .brand{display:flex;align-items:center;gap:12px}
+        /* keep your logo size and styling as-is per your request */
         .brand img{width:52px;height:52px;border-radius:10px;border:3px solid var(--mustard);object-fit:cover}
         .brand .name{color:#fff;font-weight:700}
         nav{display:flex;align-items:center;gap:22px}
         nav a{color:#fff;font-weight:600;padding:6px 2px;position:relative}
         nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--mustard);width:0;transition:width 220ms ease}
         nav a:hover::after{width:100%}
-        #themeBtn{background:transparent;border:0;color:var(--mustard);font-size:20px;cursor:pointer}
+
+        /* ---------- NAV SOCIAL (replaces theme toggle) ---------- */
+        .nav-social {
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+        .nav-social a{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:38px;
+            height:38px;
+            border-radius:8px;
+            background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.06);
+            color:#fff;
+            transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
+        }
+        .nav-social a:hover{
+            transform:translateY(-3px);
+            background:rgba(243,178,58,0.12);
+            box-shadow:0 6px 18px rgba(0,0,0,0.12);
+        }
+        .nav-social svg{width:18px;height:18px;display:block}
 
         /* ---------- FULL-VIEW SECTIONS ---------- */
         .panel{
@@ -98,13 +153,90 @@
         body.dark .card{background:#171616;border:1px solid rgba(255,255,255,0.03)}
 
         /* team grid */
-        .team-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:20px}
-        .member{width:220px;background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);transition:transform .2s}
-        .member img{height:180px;width:100%;object-fit:cover;border-radius:8px;margin-bottom:10px}
-        .member:hover{transform:translateY(-8px) rotateX(1.2deg)}
+        .team-grid {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .member {
+            width: 240px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        .member img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            transition: transform 0.4s ease;
+        }
+
+        .member:hover img {
+            transform: scale(1.05);
+        }
+
+        .member h4 {
+            margin: 10px 0 4px;
+            font-size: 1.05rem;
+            color: var(--maroon);
+            font-weight: 700;
+        }
+
+        .member p {
+            margin: 0;
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 0.9rem;
+        }
+
 
         /* footer */
-        footer{padding:34px 7vw;background:var(--green);color:#fff;border-top:3px solid var(--mustard);text-align:center}
+        footer {
+            position: relative;
+            margin-top: 40px;
+            padding: 34px 7vw;
+            background: rgba(47, 143, 47, 0.6); /* transparent green */
+            backdrop-filter: blur(12px) saturate(150%);
+            -webkit-backdrop-filter: blur(12px) saturate(150%);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.15);
+            border-radius: 20px 20px 0 0;
+            z-index: 10;
+            transition: background 0.3s ease;
+        }
+
+        /* Add this behind the footer to create visible blur */
+        body::after {
+            content: "";
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            background: url('https://www.transparenttextures.com/patterns/paper-fibers.png'),
+            linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+            background-blend-mode: overlay;
+            z-index: -1;
+        }
+
+
+
+
 
         /* responsiveness */
         @media (max-width:980px){.wide-tiles{grid-template-columns:repeat(2,1fr)}}
@@ -114,6 +246,8 @@
             .float-item{display:none} /* hide heavy decorative floats on small screens */
             .wide-tiles{grid-template-columns:1fr}
             .hero-title{font-size:2rem}
+            .nav-social { gap: 8px; }
+            .nav-social a { width:34px; height:34px; border-radius:6px; }
         }
 
         /* prefers-reduced-motion */
@@ -139,7 +273,23 @@
         <a href="#team">Team</a>
     </nav>
 
-    <button id="themeBtn" aria-label="Toggle theme">🌙</button>
+    <!-- NAV SOCIAL (updated with official logos) -->
+    <div class="nav-social" aria-hidden="false">
+        <!-- Instagram -->
+        <a href="https://instagram.com/andy_haryana_vitb" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                 alt="Instagram" width="22" height="22"
+                 style="border-radius:6px;display:block;">
+        </a>
+
+        <!-- Gmail -->
+        <a href="mailto:haryanaclub@vitbhopal.ac.in" aria-label="Email Andy Haryana Club">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png"
+                 alt="Gmail" width="22" height="22"
+                 style="display:block;">
+        </a>
+    </div>
+
 </header>
 
 <!-- HERO (full viewport) -->
@@ -218,9 +368,9 @@
         <h2 id="teamTitle">People behind Andy Haryana Club</h2>
         <p class="lead">Meet the organizers and coordinators powering the club.</p>
         <div class="team-grid">
-            <div class="member"><img src="https://via.placeholder.com/600x400?text=Ankit" alt="Ankit" loading="lazy"><h4>Summy Lohchab</h4><p>President</p></div>
-            <div class="member"><img src="https://via.placeholder.com/600x400?text=Rhea" alt="Rhea" loading="lazy"><h4>Yash Beniwal</h4><p>Vice President</p></div>
-            <div class="member"><img src="https://via.placeholder.com/600x400?text=Vikram" alt="Vikram" loading="lazy"><h4>Jyoti Chauhan</h4><p>Faculty Coordinator</p></div>
+            <div class="member"><img src="Summy%20Lohchab.jpg" alt="Summy" loading="lazy"><h4>Summy Lohchab</h4><p>President</p></div>
+            <div class="member"><img src="Yash_Beniwal.jpeg" alt="Yash" loading="lazy"><h4>Yash Beniwal</h4><p>Vice President</p></div>
+            <div class="member"><img src="https://via.placeholder.com/600x400?text=Vikram" alt="Jyoti" loading="lazy"><h4>Jyoti Chauhan</h4><p>Faculty Coordinator</p></div>
         </div>
     </div>
 </section>
@@ -228,58 +378,38 @@
 <!-- <footer>
     © <span id="year"></span> Andy Haryana Club • Rooted in <strong>Tradition</strong> • Growing with <strong>Innovation</strong>
 </footer> -->
-<footer>
-    <div><span id="year"></span> Andy Haryana Club • Rooted in <strong>Tradition</strong> • Growing with <strong>Innovation</strong></div>
-    <div style="display:flex;justify-content:center;align-items:center;gap:20px;margin-bottom:8px;">
+<footer style="background-color:#2f8f2f; color:#fff; text-align:center; padding:16px 0; font-family:'Poppins', sans-serif;">
+    <div style="max-width:900px; margin:0 auto;">
 
-        <!-- Mail icon -->
-        <a href="mailto:info@andyharyanaclub.in" title="Email">
-            <svg width="22" height="22" viewBox="0 0 48 48" aria-hidden="true">
-                <g>
-                    <rect fill="#7a1f1f" x="4" y="8" width="40" height="32" rx="3"/>
-                    <polygon fill="#fff" points="4,11 24,27 44,11 44,40 4,40"/>
-                    <polygon fill="#f3b23a" points="4,11 24,27 44,11 24,19"/>
-                </g>
-            </svg>
-        </a>
+        <p style="font-size:0.9rem; margin:4px 0;">
+            © <span id="year"></span> <strong>Andy Haryana Club</strong> • Rooted in
+            <strong style="color:#ffd700;">Tradition</strong> • Growing with
+            <strong style="color:#ffd700;">Innovation</strong>
+        </p>
 
-        <!-- Vertical divider -->
-        <span style="display:inline-block;width:2px;height:22px;background:var(--mustard);opacity:0.7;"></span>
+        <p style="margin:4px 0; font-size:0.95rem;">
+            <strong style="color:#ffd700;">Student Coordinator:</strong> Jyotsna Pandey &nbsp;|&nbsp; 9693049103
+        </p>
 
-        <!-- Instagram icon -->
-        <a href="https://instagram.com/andyharyanaclub" target="_blank" rel="noopener" title="Instagram">
-            <svg width="22" height="22" viewBox="0 0 448 448" aria-hidden="true">
-                <defs>
-                    <radialGradient id="IGg" cx="64%" cy="26%" r="1.1">
-                        <stop offset="0%"   stop-color="#fff"/>
-                        <stop offset="49%"  stop-color="#fff" stop-opacity="0"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                    </radialGradient>
-                    <linearGradient id="IGa" x1="0" x2="1" y1="0" y2="1">
-                        <stop offset="0%" stop-color="#fcb045"/>
-                        <stop offset="30%" stop-color="#fd1d1d"/>
-                        <stop offset="62%" stop-color="#833ab4"/>
-                        <stop offset="100%" stop-color="#405de6"/>
-                    </linearGradient>
-                </defs>
-                <rect width="448" height="448" rx="100" fill="url(#IGa)"/>
-                <circle cx="224" cy="224" r="78" fill="none" stroke="#fff" stroke-width="40"/>
-                <circle cx="365" cy="83" r="24" fill="#fff"/>
-                <ellipse cx="224" cy="224" rx="96" ry="96" fill="none" stroke="url(#IGg)" stroke-width="24"/>
-            </svg>
-        </a>
+        <hr style="width:55%; margin:10px auto; border:0; height:1px; background-color:rgba(255,255,255,0.3);" />
 
-        <!-- Vertical divider -->
-        <span style="display:inline-block;width:2px;height:22px;background:var(--mustard);opacity:0.7;"></span>
-
-        <!-- Student coordinator contact -->
-        <span style="color:#fff; font-weight:600; font-size:1rem; display:flex; align-items:center; gap:6px; line-height:1.1;">
-    <span style="color:var(--mustard); font-weight:700;">Student Coordinator:</span>
-    Jyotsna Pandey &nbsp;|&nbsp; 9693049103
-  </span>
+        <p style="font-size:0.8rem; opacity:0.9; margin-top:6px;">
+            Andy Haryana Club, All rights reserved
+        </p>
     </div>
-    <div><span id = "year"></span>Andy Harayana Club, All rights reserved</div>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
 </footer>
+
+
+
+
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 
 
 <script>
@@ -289,25 +419,34 @@
        - small RAF parallax for hero floats
        - bidirectional reveals (enter/leave)
        - lazy images via loading="lazy" (already used)
-       - header shrink + theme toggle
+       - header shrink + social icons in navbar (replaced theme toggle)
        =========================== */
 
     const PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* header shrink */
+    /* header shrink + show/hide on scroll */
     const header = document.getElementById('siteHeader');
-    window.addEventListener('scroll', ()=> header.classList.toggle('shrink', window.scrollY > 80));
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+        const current = window.scrollY;
+        header.classList.toggle('shrink', current > 80);
 
-    /* theme toggle */
-    const themeBtn = document.getElementById('themeBtn');
-    themeBtn.addEventListener('click', ()=>{
-        const dark = document.body.classList.toggle('dark');
-        themeBtn.textContent = dark ? '🌞' : '🌙';
-        themeBtn.animate([{transform:'rotate(0) scale(1)'},{transform:'rotate(360deg) scale(1.08)'},{transform:'rotate(0) scale(1)'}],{duration:360});
+        // subtle hide-on-scroll-down, show-on-scroll-up
+        if (current > lastScrollY && current > 150) {
+            header.style.transform = 'translateY(-20px)';
+            header.style.opacity = '0';
+        } else {
+            header.style.transform = 'translateY(0)';
+            header.style.opacity = '1';
+        }
+        lastScrollY = current;
     });
 
-    /* set current year */
-    document.getElementById('year').textContent = new Date().getFullYear();
+    /* (removed theme toggle per request) */
+
+    /* set current year (first occurrence of id="year") */
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 
     /* IntersectionObserver for panel reveals (bidirectional) */
     const panels = document.querySelectorAll('.panel');
