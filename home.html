@@ -153,10 +153,55 @@
         body.dark .card{background:#171616;border:1px solid rgba(255,255,255,0.03)}
 
         /* team grid */
-        .team-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:20px}
-        .member{width:220px;background:var(--card);padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);transition:transform .2s}
-        .member img{height:180px;width:100%;object-fit:cover;border-radius:8px;margin-bottom:10px}
-        .member:hover{transform:translateY(-8px) rotateX(1.2deg)}
+        .team-grid {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .member {
+            width: 240px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .member:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+        }
+
+        .member img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            transition: transform 0.4s ease;
+        }
+
+        .member:hover img {
+            transform: scale(1.05);
+        }
+
+        .member h4 {
+            margin: 10px 0 4px;
+            font-size: 1.05rem;
+            color: var(--maroon);
+            font-weight: 700;
+        }
+
+        .member p {
+            margin: 0;
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 0.9rem;
+        }
+
 
         /* footer */
         footer {
@@ -231,7 +276,7 @@
     <!-- NAV SOCIAL (updated with official logos) -->
     <div class="nav-social" aria-hidden="false">
         <!-- Instagram -->
-        <a href="https://instagram.com/andyharyanaclub" target="_blank" rel="noopener" aria-label="Instagram">
+        <a href="https://instagram.com/andy_haryana_vitb" target="_blank" rel="noopener" aria-label="Instagram">
             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
                  alt="Instagram" width="22" height="22"
                  style="border-radius:6px;display:block;">
@@ -323,9 +368,9 @@
         <h2 id="teamTitle">People behind Andy Haryana Club</h2>
         <p class="lead">Meet the organizers and coordinators powering the club.</p>
         <div class="team-grid">
-            <div class="member"><img src="https://via.placeholder.com/600x400?text=Ankit" alt="Ankit" loading="lazy"><h4>Summy Lohchab</h4><p>President</p></div>
-            <div class="member"><img src="https://via.placeholder.com/600x400?text=Rhea" alt="Rhea" loading="lazy"><h4>Yash Beniwal</h4><p>Vice President</p></div>
-            <div class="member"><img src="https://via.placeholder.com/600x400?text=Vikram" alt="Vikram" loading="lazy"><h4>Jyoti Chauhan</h4><p>Faculty Coordinator</p></div>
+            <div class="member"><img src="Summy%20Lohchab.jpg" alt="Summy" loading="lazy"><h4>Summy Lohchab</h4><p>President</p></div>
+            <div class="member"><img src="Yash_Beniwal.jpeg" alt="Yash" loading="lazy"><h4>Yash Beniwal</h4><p>Vice President</p></div>
+            <div class="member"><img src="https://via.placeholder.com/600x400?text=Vikram" alt="Jyoti" loading="lazy"><h4>Jyoti Chauhan</h4><p>Faculty Coordinator</p></div>
         </div>
     </div>
 </section>
