@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Andy Haryana Club — Calendar</title> 
+    <style>
+        /* ---------- THEME COLORS (Light Mode Only) ---------- */
+        :root{
+            --maroon:#7a1f1f; /* Original dark Maroon for site theme */
+            --red-indicator: #C8102E; /* Vibrant Red for state events only */
+            --mustard:#f3b23a;
+            --green:#317b22;
+            --bg:transparent; /* Changed to transparent for background image visibility */
+            --card:#ffffff; /* Light card color (Default) */
+            --text:#222; /* Dark text (Default) */
+            --nav-alpha:0.86;
+            --footer-bg: var(--green); /* Variable for Footer background */
+        }
+
+        /* ---------- BASE ---------- */
+        *{box-sizing:border-box}
+        /* --- BACKGROUND AND OVERLAY --- */
+        html {
+            /* JS will set --bg-image */
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            transition: background-image 1.2s ease-in-out;
+        }
+        body {
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            /* Dark overlay for contrast */
+            background: rgba(0, 0, 0, 0.55);
+            z-index: -1;
+        }
+        /* --- END OF BACKGROUND RULES --- */
+
+        /* HTML and BODY inherit --bg and --text */
+        html,body{height:100%;margin:0;font-family:Inter, "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;color:var(--text);-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+        img{display:block;max-width:100%}
+        a{color:inherit;text-decoration:none}
+        
+        /* ---------- HEADER (Copied from home.html) ---------- */
+        header{
+            position:fixed;
+            left:0; right:0; top:0;
+            z-index:120;
+            display: grid; /* Use grid for alignment */
+            grid-template-columns: repeat(3, 1fr);
+            align-items:center;
+            padding:16px 36px;
+            background:rgba(122,31,31,0.72);
+            backdrop-filter:blur(12px) saturate(140%);
+            -webkit-backdrop-filter:blur(12px) saturate(140%);
+            border-bottom:1px solid rgba(255,255,255,0.12);
+            box-shadow:0 6px 20px rgba(0,0,0,0.12);
+            transition:
+                    padding .25s ease,
+                    box-shadow .25s ease,
+                    background .25s ease,
+                    transform .35s ease,
+                    opacity .35s ease,
+                    top .3s ease;
+        }
+
+        header.shrink{
+            padding:8px 24px;
+            background:rgba(122,31,31,0.82);
+            box-shadow:0 8px 28px rgba(0,0,0,0.18);
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:12px;
+            justify-self: start;
+        }
+
+        .brand img{width:52px;height:52px;border-radius:10px;border:3px solid var(--mustard);object-fit:cover}
+        .brand .name{color:#fff;font-weight:700}
+
+        nav{
+            display:flex;
+            align-items:center;
+            gap:22px;
+            justify-self: center;
+        }
+
+        nav a{color:#fff;font-weight:600;padding:6px 2px;position:relative}
+        nav a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--mustard);width:0;transition:width 220ms ease}
+        nav a:hover::after{width:100%}
+        nav a[href="#calendar-container"]::after { width: 100%; } /* Active state for Calendar */
+
+        /* ---------- NAV SOCIAL (Copied from home.html) ---------- */
+        .nav-social {
+            display:flex;
+            align-items:center;
+            gap:12px;
+            justify-self: end;
+        }
+
+        .nav-social a{
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            width:38px;
+            height:38px;
+            border-radius:8px;
+            background:rgba(255,255,255,0.06);
+            border:1px solid rgba(255,255,255,0.06);
+            color:#fff;
+            transition:transform .18s ease,background .18s ease,box-shadow .18s ease;
+        }
+        .nav-social a:hover{
+            transform:translateY(-3px);
+            background:rgba(243,178,58,0.12);
+            box-shadow:0 6px 18px rgba(0,0,0,0.12);
+        }
+        
+        /* ---------- CALENDAR MAIN CONTENT CONTAINER ---------- */
+        #calendar-container {
+            padding-top: 100px;
+            min-height: calc(100vh - 100px);
+            padding-bottom: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        #calendar-container h1 {
+            text-align: center;
+            color: var(--maroon);
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            padding-top: 20px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.2); 
+        }
+
+        /* --- CALENDAR LEGEND STYLES --- */
+        .calendar-legend {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            padding: 15px;
+            border: 1px dashed var(--mustard);
+            background: var(--card); /* Use card color for legend background */
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .calendar-legend h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--maroon);
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        .calendar-legend ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex; 
+            justify-content: space-around;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .calendar-legend li {
+            display: flex;
+            align-items: center;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        /* --- CALENDAR STYLES --- */
+        .calendar-placeholder {
+            display: block; 
+            padding: 0;
+            min-height: auto;
+            color: var(--text); 
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: var(--maroon);
+            color: #fff;
+        }
+
+        .calendar-header button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 700;
+            background: var(--mustard);
+            color: var(--maroon);
+            padding: 10px 0;
+            border-bottom: 2px solid var(--maroon);
+        }
+
+        #calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: var(--card);
+            padding: 1px;
+        }
+
+        .day-cell {
+            height: 120px; 
+            padding: 8px 4px; 
+            border: 1px solid rgba(0,0,0,0.08); /* Slightly more prominent border */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.1em;
+            transition: background 0.2s ease;
+            overflow-y: auto; 
+            overflow-x: hidden;
+            background-color: #f8f8f8; /* Light background for contrast */
+        }
+
+        /* Day number styling */
+        .day-number {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text);
+            padding: 3px 5px;
+            border-radius: 4px;
+        }
+
+        /* Event Styling */
+        .event {
+            font-size: 0.7rem; 
+            font-weight: 600;
+            padding: 2px 4px; 
+            border-radius: 4px;
+            margin-bottom: 2px; 
+            max-width: 95%; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: center;
+            cursor: help;
+        }
+
+        /* Haryana State Cultural Event (VIBRANT RED INDICATOR) */
+        .state-event {
+            background-color: var(--red-indicator); 
+            color: #fff;
+        }
+
+        /* College Haryana Club Event (GREEN) */
+        .club-event {
+            background-color: var(--green);
+            color: #fff;
+        }
+
+        /* Style for days that are not in the current month */
+        .empty-day {
+            background-color: #f1f1f1; /* Make non-current days slightly different */
+            opacity: 0.8;
+            cursor: default;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        
+        /* Remaining relevant styles (card, team, footer) */
+        .wide-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:26px}
+        .card{background:var(--card);border-radius:12px;padding:12px;border:1px solid rgba(0,0,0,0.06);box-shadow:0 10px 30px rgba(0,0,0,0.06);transition:transform .22s ease}
+        .card:hover:not(.calendar-placeholder){transform:translateY(-8px) rotateX(1.2deg)}
+
+        footer{
+            padding:34px 7vw;
+            background:var(--footer-bg); /* Use the dynamic variable */
+            color:#fff;
+            border-top:3px solid var(--mustard);
+            text-align:center
+        }
+
+        /* responsiveness */
+        @media (max-width:980px){.wide-tiles{grid-template-columns:repeat(2,1fr)}}
+        @media (max-width:700px){
+            header {
+                display: flex; /* OVERRIDE: Revert grid to flex for mobile */
+                padding: 12px 14px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            .brand .name {
+                display: none;
+            }
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+                order: 3;
+            }
+            .nav-social {
+                gap: 8px;
+                order: 2;
+                justify-self: auto; /* OVERRIDE: Revert grid alignment */
+            }
+            .nav-social a {
+                width: 34px;
+                height: 34px;
+                border-radius: 6px;
+            }
+            .wide-tiles{grid-template-columns:1fr}
+            .calendar-legend ul {
+                flex-direction: column;
+                gap: 5px;
+                align-items: flex-start;
+                padding-left: 20px;
+            }
+        }
+        @media (max-width: 600px) {
+            .day-cell { height: 90px; padding: 4px 2px; }
+            .day-number { font-size: 0.9em; }
+            .event { font-size: 0.5rem; padding: 1px 2px; max-width: 100%; margin-bottom: 1px; }
+            .calendar-header h2 { font-size: 1.2rem; }
+            .calendar-weekdays { font-size: 0.8rem; padding: 8px 0; }
+        }
+        
+        /* prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce){
+            *{transition:none!important;animation:none!important}
+        }
+    </style>
+</head>
+<body>
+
+<header id="siteHeader">
+    <div class="brand">
+        <img src="https://via.placeholder.com/300x300?text=Logo" alt="Andy Haryana Club Logo" id="logoImg">
+        <div class="name">Andy Haryana Club</div>
+    </div>
+
+    <nav aria-label="Main Navigation">
+        <a href="home.html#details">About</a>
+        <a href="#calendar-container">Events</a> 
+        <a href="archive.html">Archive</a>
+        <a href="team_members.html">Team</a>
+    </nav>
+    
+    <div class="nav-social">
+        <a href="https://instagram.com/andy_haryana_vitb" target="_blank" rel="noopener" aria-label="Instagram">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                 alt="Instagram" width="22" height="22"
+                 style="border-radius:6px;display:block;">
+        </a>
+        <a href="mailto:haryanaclub@vitbhopal.ac.in" aria-label="Email Andy Haryana Club">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png"
+                 alt="Gmail" width="22" height="22"
+                 style="display:block;">
+        </a>
+    </div>
+</header>
+
+<main id="calendar-container" role="main">
+    <h1>Events Calendar 🗓️</h1>
+    
+    <div class="calendar-legend">
+        <h3>Event Key:</h3>
+        <ul>
+            <li><span class="legend-color state-event"></span> **Haryana State Cultural Events** (Red)</li>
+            <li><span class="legend-color club-event"></span> **Andy Haryana Club Events** (Coming Soon - Green)</li>
+        </ul>
+    </div>
+    <div class="calendar-placeholder card">
+        <div class="calendar-header">
+            <button id="prevMonthBtn" aria-label="Previous Month">❮</button>
+            <h2 id="monthTitle">Month Year</h2> 
+            <button id="nextMonthBtn" aria-label="Next Month">❯</button>
+        </div>
+
+        <div class="calendar-weekdays">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+        </div>
+
+        <div id="calendar-days" class="calendar-days">
+            </div>
+    </div>
+</main>
+
+<footer>
+    © <span id="year"></span> Andy Haryana Club • Rooted in <strong>Tradition</strong> • Growing with <strong>Innovation</strong>
+</footer>
+
+<script>
+    /* ===========================
+        CALENDAR LOGIC
+    =========================== */
+
+    const calendarDaysEl = document.getElementById('calendar-days');
+    const monthTitleEl = document.getElementById('monthTitle');
+    const prevMonthBtn = document.getElementById('prevMonthBtn');
+    const nextMonthBtn = document.getElementById('nextMonthBtn');
+
+    // Set a default starting date (e.g., October 2025) to showcase the mock events
+    let currentDate = new Date(2025, 9, 1); 
+
+    // --- MOCK EVENT DATA: EXTENDED LIST OF HARYANA STATE CULTURAL EVENTS 2025-2027 ---
+    const mockEvents = {
+        // --- 2025 Events ---
+        "2025-01-06": [{ name: "Guru Gobind Singh Jayanti", type: "state-event" }],
+        "2025-01-26": [{ name: "Republic Day", type: "state-event" }],
+        "2025-02-03": [{ name: "Vasant Panchami", type: "state-event" }],
+        "2025-02-07": [{ name: "Surajkund Mela Begins", type: "state-event" }],
+        "2025-02-12": [{ name: "Guru Ravidas Jayanti", type: "state-event" }],
+        "2025-02-23": [{ name: "Surajkund Mela Ends", type: "state-event" }],
+        "2025-02-26": [{ name: "Maha Shivaratri", type: "state-event" }],
+        "2025-03-14": [{ name: "Holi", type: "state-event" }],
+        "2025-03-23": [{ name: "Shaheed Diwas (Martyrdom Day)", type: "state-event" }],
+        "2025-03-31": [{ name: "Id-ul-Fitr", type: "state-event" }], 
+        "2025-04-06": [{ name: "Ram Navami", type: "state-event" }],
+        "2025-04-10": [{ name: "Mahavir Jayanti", type: "state-event" }],
+        "2025-04-14": [{ name: "Dr. Ambedkar Jayanti", type: "state-event" }],
+        "2025-04-29": [{ name: "Maharshi Parasuram Jayanti", type: "state-event" }],
+        "2025-05-29": [{ name: "Maharana Pratap Jayanti", type: "state-event" }],
+        "2025-06-07": [{ name: "Bakrid / Eid al Adha", type: "state-event" }],
+        "2025-06-11": [{ name: "Sant Guru Kabir Jayanti", type: "state-event" }],
+        "2025-07-27": [{ name: "Haryali Teej", type: "state-event" }],
+        "2025-08-09": [{ name: "Raksha Bandhan", type: "state-event" }],
+        "2025-08-15": [{ name: "Independence Day", type: "state-event" }],
+        "2025-08-16": [{ name: "Janmashtami", type: "state-event" }],
+        "2025-09-05": [{ name: "Eid e Milad", type: "state-event" }],
+        "2025-09-22": [{ name: "Maharaja Agrasen Jayanti", type: "state-event" }],
+        "2025-09-23": [{ name: "Heroes' Martyrdom Day", type: "state-event" }],
+        "2025-10-02": [{ name: "Gandhi Jayanti / Vijaya Dashami (Dussehra)", type: "state-event" }],
+        "2025-10-07": [{ name: "Maharishi Valmiki Jayanti", type: "state-event" }],
+        "2025-10-21": [{ name: "Diwali", type: "state-event" }],
+        "2025-10-22": [{ name: "Deepavali Holiday", type: "state-event" }],
+        "2025-11-01": [{ name: "Haryana Day (State Foundation)", type: "state-event" }],
+        "2025-11-05": [{ name: "Guru Nanak Jayanti", type: "state-event" }],
+        "2025-11-15": [{ name: "Gita Mahotsav Begins (Kurukshetra)", type: "state-event" }],
+        "2025-11-24": [{ name: "Gita Mahotsav Main Events Begin", type: "state-event" }],
+        "2025-12-01": [{ name: "Gita Jayanti / Global Gita Recitation", type: "state-event" }],
+        "2025-12-05": [{ name: "International Gita Mahotsav Ends", type: "state-event" }],
+        "2025-12-25": [{ name: "Christmas Day", type: "state-event" }],
+        "2025-12-26": [{ name: "Shaheed Udham Singh Jayanti", type: "state-event" }],
+        
+        // --- 2026 Events ---
+        "2026-01-20": [{ name: "Guru Gobind Singh Jayanti", type: "state-event" }],
+        "2026-01-26": [{ name: "Republic Day", type: "state-event" }],
+        "2026-02-01": [{ name: "Surajkund Mela Begins", type: "state-event" }],
+        "2026-02-17": [{ name: "Guru Ravidas Jayanti", type: "state-event" }],
+        "2026-02-26": [{ name: "Maha Shivaratri", type: "state-event" }],
+        "2026-03-04": [{ name: "Surajkund Mela Ends", type: "state-event" }],
+        "2026-03-03": [{ name: "Holi", type: "state-event" }],
+        "2026-03-23": [{ name: "Shaheed Diwas (Martyrdom Day)", type: "state-event" }],
+        "2026-03-24": [{ name: "Ram Navami", type: "state-event" }],
+        "2026-04-14": [{ name: "Dr. Ambedkar Jayanti", type: "state-event" }],
+        "2026-05-12": [{ name: "Buddha Purnima", type: "state-event" }],
+        "2026-05-29": [{ name: "Maharana Pratap Jayanti", type: "state-event" }],
+        "2026-06-03": [{ name: "Id-ul-Fitr", type: "state-event" }], 
+        "2026-06-21": [{ name: "Sant Guru Kabir Jayanti", type: "state-event" }],
+        "2026-08-01": [{ name: "Raksha Bandhan", type: "state-event" }],
+        "2026-08-15": [{ name: "Independence Day", type: "state-event" }],
+        "2026-08-18": [{ name: "Janmashtami", type: "state-event" }],
+        "2026-09-07": [{ name: "Ganesh Chaturthi", type: "state-event" }],
+        "2026-10-02": [{ name: "Gandhi Jayanti", type: "state-event" }],
+        "2026-10-18": [{ name: "Diwali", type: "state-event" }],
+        "2026-11-01": [{ name: "Haryana Day (State Foundation)", type: "state-event" }],
+        "2026-11-05": [{ name: "Guru Nanak Jayanti", type: "state-event" }],
+        "2026-12-25": [{ name: "Christmas Day", type: "state-event" }],
+        
+        // --- 2027 Events (Start of Year) ---
+        "2027-01-26": [{ name: "Republic Day", type: "state-event" }],
+        "2027-02-01": [{ name: "Surajkund Mela Begins", type: "state-event" }],
+    };
+
+    // Function to render the calendar grid
+    function renderCalendar() {
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth(); // 0 (Jan) - 11 (Dec)
+
+        // 1. Set the Title
+        monthTitleEl.textContent = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+        // 2. Determine the first day of the month (0=Sun, 6=Sat)
+        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        
+        // 3. Determine the last day of the month (total days in the month)
+        const lastDay = new Date(year, month + 1, 0).getDate();
+
+        // 4. Generate Days HTML
+        let daysHtml = '';
+        
+        // Add padding days from the previous month (empty-day class)
+        const lastDayOfPrevMonth = new Date(year, month, 0).getDate();
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            const dayNum = lastDayOfPrevMonth - firstDayOfMonth + i + 1;
+            daysHtml += `<div class="day-cell empty-day"><div class="day-number">${dayNum}</div></div>`;
+        }
+
+        // Add actual days of the current month
+        for (let day = 1; day <= lastDay; day++) {
+            // Generate the YYYY-MM-DD key for event lookup
+            const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const events = mockEvents[dateKey] || [];
+            
+            let eventHtml = '';
+            events.forEach(event => {
+                eventHtml += `<div class="event ${event.type}" title="${event.name}">${event.name}</div>`;
+            });
+
+            daysHtml += `
+                <div class="day-cell">
+                    <div class="day-number">${day}</div>
+                    ${eventHtml}
+                </div>
+            `;
+        }
+        
+        // 5. Inject HTML into the container
+        calendarDaysEl.innerHTML = daysHtml;
+    }
+
+    // --- EVENT LISTENERS FOR NAVIGATION ---
+    prevMonthBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar();
+    });
+
+    nextMonthBtn.addEventListener('click', () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar();
+    });
+    
+    // Initial render when the page loads
+    renderCalendar();
+
+    /* ===========================
+        OTHER INTERACTIVE LOGIC (Header, Year)
+    =========================== */
+
+    const PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const header = document.getElementById('siteHeader');
+
+    /* header shrink and hide/show on scroll */
+    let lastScrollY = window.scrollY;
+
+    if (header) {
+        window.addEventListener('scroll', () => {
+            const current = window.scrollY;
+            header.classList.toggle('shrink', current > 80);
+
+            if (current > lastScrollY && current > 150) {
+                // Hide the header
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Show the header
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollY = current;
+        }, { passive: true });
+    }
+
+    /* set current year */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* Navigation links smooth scroll */
+    document.querySelectorAll('nav a').forEach(a => {
+        a.addEventListener('click', (e) => {
+            const href = a.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetTop = document.getElementById('calendar-container').offsetTop - header.offsetHeight;
+                window.scrollTo({top: targetTop, behavior:'smooth'});
+            }
+        });
+    });
+
+    // ---------- RANDOM BACKGROUND IMAGE LOGIC ----------
+    (function() {
+        const bgImages = [
+            'my_backgrounds/Gemini_Generated_Image_2lbw3f2lbw3f2lbw.png',
+            'my_backgrounds/Gemini_Generated_Image_6bttph6bttph6btt.png',
+            'my_backgrounds/Gemini_Generated_Image_6ueyi66ueyi66uey.png',
+            'my_backgrounds/Gemini_Generated_Image_ltbye7ltbye7ltby.png',
+            'my_backgrounds/Gemini_Generated_Image_w6h90mw6h90mw6h9.png'
+        ];
+
+        // Pick a random one on each load
+        const randomImage = bgImages[Math.floor(Math.random() * bgImages.length)];
+
+        // Set a CSS variable on the root element
+        document.documentElement.style.setProperty('--bg-image', `url('${randomImage}')`);
+    })();
+    // ---------- END OF BACKGROUND IMAGE LOGIC ----------
+</script>
+</body>
+</html>
