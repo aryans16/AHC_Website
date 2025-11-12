@@ -270,15 +270,82 @@
         }
         /* --- END OF NEW LIGHT TEXT --- */
 
-
-        /* team grid */
-        .team-grid {
-            display: flex;
-            gap: 22px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 24px;
-        }
+   /* team grid */
+      .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 38px 22px;
+    justify-items: center;
+    align-items: center;
+    margin-top: 44px;
+}
+.member {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.13);
+    width: 320px;
+    text-align: center;
+    padding: 48px 18px 26px 18px;
+    position: relative;
+    transition: transform 0.35s cubic-bezier(0.43,1.2,0.54,1), box-shadow 0.4s;
+    margin-top: 40px;
+}
+.member img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 18px;
+    margin-top: -72px;
+    background: #fcfcfc;
+    box-shadow: 0 6px 22px rgba(100,100,100,0.13);
+    transition: transform 0.25s cubic-bezier(0.26,1.34,0.35,1);
+    z-index: 2;
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.member:hover {
+    transform: translateY(-24px) scale(1.07);
+    box-shadow: 0 24px 52px rgba(34,74,129,0.18), 0 2px 14px rgba(0,0,0,0.12);
+    z-index: 2;
+}
+.member:hover img {
+    transform: translateY(-12px) scale(1.13) rotate(-1deg);
+    box-shadow: 0 10px 36px rgba(76,115,168,0.24);
+}
+.member h4 {
+    margin-top: 16px;
+    margin-bottom: 5px;
+    font-weight: 700;
+    font-size: 1.19em;
+}
+.member p {
+    margin-top: 0;
+    color: #4b5464;
+    font-weight: 500;
+    font-size: 1.05em;
+}
+@media screen and (max-width: 900px) {
+    .team-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .member {
+        width: 98vw;
+        max-width: 340px;
+        padding: 44px 10px 22px 10px;
+    }
+    .member img {
+        width: 120px;
+        height: 120px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+}
         /* --- NEW: Light Text for Team Section --- */
         #team .kicker {
             color: var(--mustard);
@@ -624,15 +691,15 @@
 </div>
 <header id="siteHeader">
     <div class="brand">
-        <img src="/AHC_Website/Team_photos/logo.jpg" alt="Andy Haryana Club Logo" id="logoImg">
+        <img src="logo.jpg" alt="Andy Haryana Club Logo" id="logoImg">
         <div class="name">Andy Haryana Club</div>
     </div>
 
     <nav aria-label="Main Navigation">
         <a href="home.html">Home</a>
         <a href="calendar.html">Calender</a>
-        <a href="#archive.html">Archive</a>
-        <a href="team.html">Team</a>
+        <a href="archive.html">Archive</a>
+        <a href="#team">Team</a>
     </nav>
 
     <div class="nav-social">
@@ -653,10 +720,10 @@
     <div class="hero-overlay" aria-hidden="true"></div>
 
     <div class="float-layer" aria-hidden="true" id="floatLayer">
-        <div class="float-item item-dhol" id="dhol"><img src="/AHC_Website/other_images/dhol.png" alt="Dhol" loading="lazy"></div>
-        <div class="float-item item-tractor" id="tractor"><img src="/AHC_Website/other_images/tractor.png" alt="Tractor" loading="lazy"></div>
-        <div class="float-item item-turban" id="turban"><img src="/AHC_Website/other_images/turban.png" alt="Turban" loading="lazy"></div>
-        <div class="float-item item-phulkari" id="phulkari"><img src="/AHC_Website/other_images/phulkari.png" alt="Phulkari" loading="lazy"></div>
+        <div class="float-item item-dhol" id="dhol"><img src="dhol.png" alt="Dhol" loading="lazy"></div>
+        <div class="float-item item-tractor" id="tractor"><img src="tractor.png" alt="Tractor" loading="lazy"></div>
+        <div class="float-item item-turban" id="turban"><img src="turban.png" alt="Turban" loading="lazy"></div>
+        <div class="float-item item-phulkari" id="phulkari"><img src="phulkari.png" alt="Phulkari" loading="lazy"></div>
     </div>
 
     <div class="hero-inner" id="heroInner">
@@ -679,7 +746,7 @@
         <div class="details-container">
             <div class="feature-row" id="feature1">
                 <div class="feature-image">
-                    <img src="Highlight_pics/WhatsApp%20Image%202025-11-11%20at%2023.04.47_19ad00e3.jpg" alt="Cultural Celebration" loading="lazy">
+                    <img src="WhatsApp%20Image%202025-11-11%20at%2023.04.47_19ad00e3.jpg" alt="Cultural Celebration" loading="lazy">
                 </div>
                 <div class="feature-text">
                     <h3>Vibrant Celebrations</h3>
@@ -689,7 +756,7 @@
 
             <div class="feature-row reverse" id="feature2">
                 <div class="feature-image">
-                    <img src="Highlight_pics/hi2.jpg" alt="Community Connection" loading="lazy">
+                    <img src="hi2.jpg" alt="Community Connection" loading="lazy">
                 </div>
                 <div class="feature-text">
                     <h3>Community & Connection</h3>
@@ -699,7 +766,7 @@
 
             <div class="feature-row" id="feature3">
                 <div class="feature-image">
-                    <img src="Highlight_pics/hi3.jpg" alt="Modern Creativity" loading="lazy">
+                    <img src="hi3.jpg" alt="Modern Creativity" loading="lazy">
                 </div>
                 <div class="feature-text">
                     <h3>Modern Creativity</h3>
@@ -711,7 +778,7 @@
 
             <div class="feature-row reverse" id="feature4">
                 <div class="feature-image">
-                    <img src="Highlight_pics/hi4.jpg" alt="Student Leadership" loading="lazy">
+                    <img src="hi4.jpg" alt="Student Leadership" loading="lazy">
                 </div>
                 <div class="feature-text">
                     <h3>Student Leadership</h3>
@@ -728,10 +795,30 @@
         <h2 id="teamTitle">People behind Andy Haryana Club</h2>
         <p class="lead">Meet the organizers and coordinators powering the club.</p>
         <div class="team-grid">
-            <div class="member"><img src="/AHC_Website/Team_photos/jyoti.png" alt="Jyoti" loading="lazy"><h4>Jyoti Chauhan</h4><p>Faculty Coordinator</p></div>
-            <div class="member"><img src="/AHC_Website/Team_photos/Summy_Lohchab.jpg" alt="Summy" loading="lazy"><h4>Summy Lohchab</h4><p>President</p></div>
-            <div class="member"><img src="/AHC_Website/Team_photos/Yash_Beniwal.jpeg" alt="Yash" loading="lazy"><h4>Yash Beniwal</h4><p>Vice President</p></div>
-
+            <div class="member"><img src="1.png" alt="Summy" loading="lazy"><h4>Summy Lohchab</h4><p>President</p></div>
+            <div class="member"><img src="2.png" alt="Yash" loading="lazy"><h4>Yash Beniwal</h4><p>Vice-President</p></div>
+            <div class="member"><img src="prashiv.png" alt="Prashiv" loading="lazy"><h4>Prashiv Rajput</h4><p>Student Coordinator</p></div>
+            <div class="member"><img src="IMG-20250706-WA0077~2 - Jigyasa 23bce10382.jpg" alt="Jigyasa" loading="lazy"><h4>Jigyasa Bishnoi</h4><p>General Secretary</p></div>
+            <div class="member"><img src="sanjot.png" alt="Sanjot" loading="lazy"><h4>Sanjot Mirashe</h4><p>General Secretary</p></div>
+            <div class="member"><img src="my pic - Jyotsna Pandey 23bce11062.jpg" alt="Jyotsna" loading="lazy"><h4>Jyotsna Pandey</h4><p>Student Coordinator</p></div>
+            <div class="member"><img src="Himalaya_23MEI10069 - HIMALAYA YADAV 23MEI10069.jpg" alt="Himalaya" loading="lazy"><h4>Himalaya Yadav</h4><p>Technical Team Lead</p></div>
+            <div class="member"><img src="IMG_2760 - Sumit 23bce10559.jpeg" alt="Sumit" loading="lazy"><h4>Sumit</h4><p>Content Team Lead</p></div>
+            <div class="member"><img src="nkart.png" alt="Kartavya" loading="lazy"><h4>Kartavya Rana</h4><p>PR & Outreach Team Lead</p></div>
+            <div class="member"><img src="IMG-20250720-WA0003 - Lokesh 23bce10304.jpg" alt="Lokesh" loading="lazy"><h4>Lokesh</h4><p>Discipline Head</p></div>
+            <div class="member"><img src="F834E7D6-9537-48CB-9DF1-5157DA573E4F - SAMARTH SAINI 24BCY10037.jpeg" alt="Samarth" loading="lazy"><h4>Samarth Saini</h4><p>Social Media Team Lead</p></div>
+            <div class="member"><img src="IMG-20241129-WA0008 - Shubham Sura 23bai11141.jpg" alt="Shubham" loading="lazy"><h4>Shubham Sura</h4><p>Event Managment Head</p></div>
+            <div class="member"><img src="3.png" alt="Prashant" loading="lazy"><h4>Prashant Kumawat</h4><p>Event Managment Team Lead</p></div>
+            <div class="member"><img src="Anjali Kushwaha.jpg" alt="Anjali" loading="lazy"><h4>Anjali Kushwaha</h4><p>Design Team Lead</p></div>
+            <div class="member"><img src="IMG_20250926_221303 - Anjali Sevkani 23bai10209.jpg" alt="Anjali" loading="lazy"><h4>Anjali Sevkani</h4><p>Cultural Team Lead</p></div>
+            <div class="member"><img src="IMG_20250926_212337 - Kanika Kumar 23bce10252.jpg" alt="Kanika" loading="lazy"><h4>Kanika Kumar</h4><p>Cultural Secretary</p></div>
+            <div class="member"><img src="20250220_143828(2) - PUSHPEET NAIN 24BCE10943.jpg" alt="Pushpeet" loading="lazy"><h4>Pushpeet Nain</h4><p>Cultural Team Co-lead</p></div>
+            <div class="member"><img src="IMG_20250925_195832 - Aarya Patel 23bai10112.jpg" alt="Aarya" loading="lazy"><h4>Aarya Patel</h4><p>Cultural Team Co-lead</p></div>
+            <div class="member"><img src="IMG-20250926-WA0006 - ARYAN 24BAI10586.jpg" alt="Aryan" loading="lazy"><h4>Aryan Meheriya</h4><p>PR & Outreach Team Co-lead</p></div>
+            <div class="member"><img src="ritika.png" alt="Ritika" loading="lazy"><h4>Ritika Jain</h4><p>Content Team Co-lead</p></div>
+            <div class="member"><img src="newrajat.png" alt="Rajat" loading="lazy"><h4>Rajat Acharya</h4><p>Event Managment Team Co-lead</p></div>
+            <div class="member"><img src="IMG_0253 - Abhay Singh 24BEY10163.jpeg" alt="Abhay" loading="lazy"><h4>Abhay Singh</h4><p>Social Media Team Co-lead</p></div>
+            <div class="member"><img src="pranav.png" alt="Pranav" loading="lazy"><h4>Pranav Singal</h4><p>Technical Team Co-lead</p></div>
+            <div class="member"><img src="Swati formal_pic - SWATI SINGH 24BEY10046.jpg" alt="Swati" loading="lazy"><h4>Swati Singh</h4><p>Design Team Co-lead</p></div>
         </div>
     </div>
 </section>
@@ -954,11 +1041,11 @@
     // ---------- RANDOM BACKGROUND IMAGE ----------
     (function() {
         const bgImages = [
-            'my_backgrounds/Gemini_Generated_Image_2lbw3f2lbw3f2lbw.png',
-            'my_backgrounds/Gemini_Generated_Image_6bttph6bttph6btt.png',
-            'my_backgrounds/Gemini_Generated_Image_6ueyi66ueyi66uey.png',
-            'my_backgrounds/Gemini_Generated_Image_ltbye7ltbye7ltby.png',
-            'my_backgrounds/Gemini_Generated_Image_w6h90mw6h90mw6h9.png'
+            'Gemini_Generated_Image_2lbw3f2lbw3f2lbw.png',
+            'Gemini_Generated_Image_6bttph6bttph6btt.png',
+            'Gemini_Generated_Image_6ueyi66ueyi66uey.png',
+            'Gemini_Generated_Image_ltbye7ltbye7ltby.png',
+            'Gemini_Generated_Image_w6h90mw6h90mw6h9.png'
         ];
 
         // Pick a random one on each load
