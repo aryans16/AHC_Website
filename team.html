@@ -660,6 +660,23 @@
             /* This pushes your hero content down to account for both */
             padding-top: calc(90px + var(--banner-height));
         }
+        /* === ADD THESE TWO NEW RULES === */
+
+        /* 1. Sets default top padding for all panels EXCEPT the hero */
+        .panel:not(.hero) {
+            padding-top: 90px;
+        }
+
+        /* 2. Adds the banner height when the banner is active */
+        body.event-active .panel:not(.hero) {
+            padding-top: calc(90px + var(--banner-height));
+        }
+
+        /* === END OF NEW RULES === */
+
+
+        /* Make sure mobile looks okay */
+        @media (max-width: 700px) {
 
         /* Make sure mobile looks okay */
         @media (max-width: 700px) {
@@ -716,78 +733,7 @@
     </div>
 </header>
 
-<section id="hero" class="panel hero" aria-label="Hero">
-    <div class="hero-overlay" aria-hidden="true"></div>
-
-    <div class="float-layer" aria-hidden="true" id="floatLayer">
-        <div class="float-item item-dhol" id="dhol"><img src="dhol.png" alt="Dhol" loading="lazy"></div>
-        <div class="float-item item-tractor" id="tractor"><img src="tractor.png" alt="Tractor" loading="lazy"></div>
-        <div class="float-item item-turban" id="turban"><img src="turban.png" alt="Turban" loading="lazy"></div>
-        <div class="float-item item-phulkari" id="phulkari"><img src="phulkari.png" alt="Phulkari" loading="lazy"></div>
-    </div>
-
-    <div class="hero-inner" id="heroInner">
-        <div class="hero-title">Andy Haryana Club</div>
-        <div class="hero-sub">Celebrating Culture, Connection & Creativity – The Andy Way!</div>
-        <div class="hero-desc">Andy Haryana Club blends tradition with trend — a vibrant student community celebrating Haryana’s roots through art, music, and unforgettable moments. From chai meetups to cultural fests, we don’t follow the vibe — we make it.</div>
-
-        <div class="hero-cta">
-            <button class="btn" id="exploreBtn">Explore</button>
-            <a href="calendar.html" class="btn light" id="calendarBtn">Calendar</a>
-        </div>
-    </div>
-</section>
-
-<section id="details" class="panel" aria-labelledby="detailsTitle">
-    <div class="panel-inner">
-        <div class="kicker">Our Vibe</div>
-        <h2 id="detailsTitle">Tradition Meets Tomorrow</h2>
-
-        <div class="details-container">
-            <div class="feature-row" id="feature1">
-                <div class="feature-image">
-                    <img src="WhatsApp%20Image%202025-11-11%20at%2023.04.47_19ad00e3.jpg" alt="Cultural Celebration" loading="lazy">
-                </div>
-                <div class="feature-text">
-                    <h3>Vibrant Celebrations</h3>
-                    <p>We bring the energy of Haryana's festivals to life. From energetic folk dances and music to celebrating festivals like Lohri together, we are a home away from home, full of life and color.</p>
-                </div>
-            </div>
-
-            <div class="feature-row reverse" id="feature2">
-                <div class="feature-image">
-                    <img src="hi2.jpg" alt="Community Connection" loading="lazy">
-                </div>
-                <div class="feature-text">
-                    <h3>Community & Connection</h3>
-                    <p>Dressed in traditional ghagras and odhnis,this performance was pure energy + tradition. Who says culture can’t be cool? We just proved that a Haryanvi beat can make anyone groove. With those bright skirts, cute smiles, and a sprinkle of sparkle on stage, it was less of a dance and more of a celebration of roots with a remix of vibe.</p>
-                </div>
-            </div>
-
-            <div class="feature-row" id="feature3">
-                <div class="feature-image">
-                    <img src="hi3.jpg" alt="Modern Creativity" loading="lazy">
-                </div>
-                <div class="feature-text">
-                    <h3>Modern Creativity</h3>
-                    <p>All smiles, folded hands, and pure Haryanvi pride. From the pagdi to the ghagra, every detail screamed Desi elegance with a modern twist.We didn’t just perform  we represented a culture, a rhythm, a way of life.
-
-                        Because being rooted doesn’t mean being boring it means knowing where you come from and owning it with style</p>
-                </div>
-            </div>
-
-            <div class="feature-row reverse" id="feature4">
-                <div class="feature-image">
-                    <img src="hi4.jpg" alt="Student Leadership" loading="lazy">
-                </div>
-                <div class="feature-text">
-                    <h3>Student Leadership</h3>
-                    <p>Haryanvi attire reflects the earthy spirit and bold charm of Haryana. Wrapped in colors, culture, dazzling jewelry that speaks tradition our outfits celebrate. Bright, bold, and beautiful that’s how we roll in Haryanvi attire!</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
+<section>
 </section>
 <section id="team" class="panel" aria-labelledby="teamTitle">
     <div class="panel-inner" id="teamInner">
