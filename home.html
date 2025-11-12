@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Andy Haryana Club — Landing</title>
+    <title>Andy Haryana Club</title>
     <style>
         /* ---------- THEME COLORS ---------- */
         :root{
@@ -546,8 +546,7 @@
 
             /* This hides it by default */
             transform: translateY(-100%);
-            transition: transform 0.3s ease;
-            position: relative; /* Required for the pseudo-element */
+            transition: transform 0.3s ease;/* Required for the pseudo-element */
             overflow: hidden;   /* Clips the shine effect */
         }
 
@@ -616,7 +615,7 @@
         }
     </style>
 </head>
-<body>
+<body class = "event-active">
 <div id="eventBanner">
     <div class="banner-content">
         <strong>Upcoming Event:</strong> Lohri Celebration - Jan 13th!
@@ -630,7 +629,7 @@
     </div>
 
     <nav aria-label="Main Navigation">
-        <a href="#about.html">About</a>
+        <a href="home.html">Home</a>
         <a href="calendar.html">Calender</a>
         <a href="#archive.html">Archive</a>
         <a href="team.html">Team</a>
@@ -667,11 +666,9 @@
 
         <div class="hero-cta">
             <button class="btn" id="exploreBtn">Explore</button>
-            <button class="btn light" id="calendarBtn">Calendar</button>
+            <a href="calendar.html" class="btn light" id="calendarBtn">Calendar</a>
         </div>
     </div>
-
-    <div class="hint" aria-hidden="true">Scroll to explore ↓</div>
 </section>
 
 <section id="details" class="panel" aria-labelledby="detailsTitle">
@@ -692,31 +689,33 @@
 
             <div class="feature-row reverse" id="feature2">
                 <div class="feature-image">
-                    <img src="Highlight_pics/IMG_0618.JPG" alt="Community Connection" loading="lazy">
+                    <img src="Highlight_pics/hi2.jpg" alt="Community Connection" loading="lazy">
                 </div>
                 <div class="feature-text">
                     <h3>Community & Connection</h3>
-                    <p>It's not just a club; it's a family. We foster deep connections through 'chai meetups,' collaborative projects, and creating a supportive network for all students on campus.</p>
+                    <p>Dressed in traditional ghagras and odhnis,this performance was pure energy + tradition. Who says culture can’t be cool? We just proved that a Haryanvi beat can make anyone groove. With those bright skirts, cute smiles, and a sprinkle of sparkle on stage, it was less of a dance and more of a celebration of roots with a remix of vibe.</p>
                 </div>
             </div>
 
             <div class="feature-row" id="feature3">
                 <div class="feature-image">
-                    <img src="Highlight_pics/IMG_0579.JPG" alt="Modern Creativity" loading="lazy">
+                    <img src="Highlight_pics/hi3.jpg" alt="Modern Creativity" loading="lazy">
                 </div>
                 <div class="feature-text">
                     <h3>Modern Creativity</h3>
-                    <p>We blend tradition with trend. Our 'Hack & Heritage' events digitize cultural stories, while our talent showcases provide a stage for modern Haryanvi art, music, and poetry.</p>
+                    <p>All smiles, folded hands, and pure Haryanvi pride. From the pagdi to the ghagra, every detail screamed Desi elegance with a modern twist.We didn’t just perform  we represented a culture, a rhythm, a way of life.
+
+                        Because being rooted doesn’t mean being boring it means knowing where you come from and owning it with style</p>
                 </div>
             </div>
 
             <div class="feature-row reverse" id="feature4">
                 <div class="feature-image">
-                    <img src="Highlight_pics/IMG_0560.JPG" alt="Student Leadership" loading="lazy">
+                    <img src="Highlight_pics/hi4.jpg" alt="Student Leadership" loading="lazy">
                 </div>
                 <div class="feature-text">
                     <h3>Student Leadership</h3>
-                    <p>This club is run by students, for students. We provide a platform for members to take initiative, lead projects, and gain valuable experience in event management and community building.</p>
+                    <p>Haryanvi attire reflects the earthy spirit and bold charm of Haryana. Wrapped in colors, culture, dazzling jewelry that speaks tradition our outfits celebrate. Bright, bold, and beautiful that’s how we roll in Haryanvi attire!</p>
                 </div>
             </div>
 
@@ -761,6 +760,24 @@
 <script>
     (function() {
         'use strict';
+
+        /* --- Explore Button Smooth Scroll --- */
+        const exploreBtn = document.getElementById('exploreBtn');
+        const detailsSection = document.getElementById('details');
+
+        if (exploreBtn && detailsSection) {
+            exploreBtn.addEventListener('click', () => {
+                // This uses the same logic as your nav links
+                // 'header' is already defined in this script's scope
+                const headerHeight = header ? header.offsetHeight : 60;
+                const y = detailsSection.getBoundingClientRect().top + window.scrollY - (headerHeight + 6);
+
+                window.scrollTo({
+                    top: y,
+                    behavior: 'smooth'
+                });
+            });
+        }
 
         const PREFERS_REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
